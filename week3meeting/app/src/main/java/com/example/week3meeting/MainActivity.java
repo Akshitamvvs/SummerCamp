@@ -3,8 +3,11 @@ package com.example.week3meeting;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +21,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button createfile = (Button)findViewById(R.id.filebutton);
 
-        Button bt1 = (Button)findViewById(R.id.b1);
         TextView tv1 = (TextView) findViewById(R.id.t1);
+        final String[] filename = new String[1];
 
-
-        bt1.setOnClickListener(new View.OnClickListener() {
+        //creating the file using the 1st button
+        createfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 File dir = new File(MainActivity.this.getFilesDir(), "week3");
-                String filename = "week3manytimes.txt";
+                String filename = "text.txt";
                 //Checking if directory exists
                 if(!dir.exists())
                 {
@@ -36,13 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    File file = new File(dir,filename);
-
-                    //appending data many times to the same file
+                    File file = new File(dir, filename);
+                    //appending data to the same file multiple times on multiple button clicks
                     FileWriter writer = new FileWriter(file, true);
                     writer.append(tv1.getText().toString());
                     writer.append("\n");
-                    writer.append(bt1.getText().toString());
                     writer.close();
                     Toast.makeText(MainActivity.this, "Saved your text", Toast.LENGTH_LONG).show();
 
