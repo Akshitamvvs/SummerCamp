@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     Sensor acc;
     SensorManager sm;
+    SensorManager sm1;
     TextView tv;
     boolean flag = false;
     @Override
@@ -53,7 +56,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float x = vals[0];
         float y = vals[1];
         float z = vals[2];
-        String msg = "time:"+String.valueOf(sensorEvent.timestamp)+","+String.valueOf(x)+","+String.valueOf(y)+","+String.valueOf(z);
+        Display dis = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        int rotation = dis.getRotation();
+
+        String msg = "time:"+String.valueOf(sensorEvent.timestamp)+","+String.valueOf(x)+","+String.valueOf(y)+","+String.valueOf(z)+" Rotation:"+rotation;
         Toast.makeText(MainActivity.this,"flag:true",Toast.LENGTH_LONG).show();
         tv.setText(msg);
 
